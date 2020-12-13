@@ -8,16 +8,19 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
 import javax.swing.*;
 
+import controllers.SolidController;
+import models.AbstractModel;
 import threedimensions.draw.IDrawer;
 import threedimensions.draw.SimpleEdgeDrawer;
 import threedimensions.math.Vector3;
 import threedimensions.screen.ScreenConverter;
 import threedimensions.third.Camera;
 import threedimensions.geometry.Plane;
+import threedimensions.third.IModel;
 import threedimensions.third.Scene;
-import models.*;
 import models.PlatonicSolid.*;
 
 /**
@@ -30,6 +33,7 @@ public class DrawPanel extends JPanel
     private ScreenConverter sc;
     private Camera cam;
     private CameraController camController;
+    private SolidController solidController;
 
     public DrawPanel() {
         super();
@@ -37,8 +41,7 @@ public class DrawPanel extends JPanel
         cam = new Camera();
         camController = new CameraController(cam, sc);
         scene = new Scene(Color.WHITE.getRGB());
-        scene.showAxes();
-        
+        scene.hideAxes();
         /*scene.getModelsList().add(new Parallelepiped(
                 new Vector3(-0.4f, -0.4f, -0.4f), 
                 new Vector3(0.4f, 0.4f, 0.4f)
@@ -46,8 +49,7 @@ public class DrawPanel extends JPanel
 
          */
 
-        //scene.getModelsList().add(t);
-        Plane pl = new Plane(
+       /*Plane pl = new Plane(
                 new Vector3(1.34, -0.49, 0),
                 new Vector3(0, -1.03, 0),
                 new Vector3(0, 0, 0.75)
@@ -59,8 +61,7 @@ public class DrawPanel extends JPanel
                 new Vector3(2.31938,1.775,0.75)
         );
 
-        SolidManager solidManager = new SolidManager(pl);
-        scene.getModelsList().add(solidManager.partition(new Icosahedron(3))[0]);
+        */
 
         camController.addRepaintListener(this);
         addMouseListener(camController);
@@ -83,7 +84,17 @@ public class DrawPanel extends JPanel
     public void shouldRepaint() {
         repaint();
     }
-    public void add(){
-        scene.getModelsList().add(new Icosahedron(1));
+
+    public void add(IModel model) {
+        List<IModel> list = scene.getModelsList();
+        if(model == null)
+            return;
+        list.add(model);
+        shouldRepaint();
+    }
+
+    public void clear(){
+        List<IModel> list = scene.getModelsList();
+        list.clear();
     }
 }

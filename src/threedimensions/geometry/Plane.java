@@ -2,18 +2,29 @@ package threedimensions.geometry;
 
 import threedimensions.math.Vector3;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 /**
  * Класс, описывающий плоскость
  */
 public class Plane {
+
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
     private float[] coef = new float[4];
     private Vector3 point1, point2, point3;
 
+    private float A, B, C, D;
+    public Plane(){
+        this(0, 0, 0,  0);
+    }
+
     public Plane(float a, float b, float c, float d) {
-        this.coef[0] = a;
-        this.coef[1] = b;
-        this.coef[2] = c;
-        this.coef[3] = d;
+        this.coef[0] = this.A = a;
+        this.coef[1] = this.B = b;
+        this.coef[2] = this.C = c;
+        this.coef[3] = this.D = d;
     }
 
     public Plane(Vector3 point1, Vector3 point2, Vector3 point3) {
@@ -52,6 +63,13 @@ public class Plane {
     public Vector3 getABD() {
         return new Vector3(getA(), getB(), getD());
     }
+    public Vector3 getACD() {
+        return new Vector3(getA(), getC(), getD());
+    }
+
+    public Vector3 getBCD() {
+        return new Vector3(getB(), getC(), getD());
+    }
 
     public float getA() {
         return (float) this.coef[0];
@@ -59,6 +77,7 @@ public class Plane {
     public float getB() {
         return (float) this.coef[1];
     }
+
     public float getC() {
         return (float) this.coef[2];
     }
@@ -67,8 +86,66 @@ public class Plane {
         return (float) this.coef[3];
     }
 
+    public void setA(float newVal){
+        support.firePropertyChange("A", this.A, newVal);
+        this.coef[0] = this.A = newVal;
+    }
+
+    public void setB(float newVal){
+        support.firePropertyChange("B", this.B, newVal);
+        this.coef[1] = this.B = newVal;
+    }
+
+    public void setC(float newVal){
+        support.firePropertyChange("C", this.C, newVal);
+        this.coef[2] = this.C = newVal;
+    }
+
+    public void setD(float newVal){
+        support.firePropertyChange("D", this.D, newVal);
+        this.coef[3] = this.D = newVal;
+    }
+
+    /*public float[] getCoef() {
+        return coef;
+    }
+
+     */
+
     public double valueAt(Vector3 point){
         return getNormal().dotProduct(point) + getD();
     }
 
+    public void setNewValue(String value, float num) {
+        synchronized (this) {
+            switch (value.charAt(0)) {
+                case 'A':
+                    setA(num);
+                    break;
+                case 'B':
+                    setB(num);
+                    break;
+                case 'C':
+                    setC(num);
+                    break;
+                case 'D':
+                    setD(num);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void addPropertyChangeListener(String name, PropertyChangeListener l) {
+        support.addPropertyChangeListener(name, l);
+    }
+
+    public void removePropertyChangeListener(String name, PropertyChangeListener l) {
+        support.removePropertyChangeListener(name, l);
+    }
+
+    public boolean isPresent() {
+        return getA() != 0 || getB() != 0 || getC() != 0;
+    }
 }

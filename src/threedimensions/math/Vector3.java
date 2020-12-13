@@ -6,6 +6,7 @@ package threedimensions.math;
 
 import java.util.Arrays;
 
+import static java.lang.StrictMath.abs;
 import static java.lang.StrictMath.sqrt;
 
 /**
@@ -62,7 +63,7 @@ public class Vector3 implements Cloneable{
         return values[idx];
     }
     
-    public static final float EPSILON = 1e-10f;
+    public static final float EPSILON = 1e-6f;
     /**
      * Метод, возвращающий длину вектора
      * @return длина вектора
@@ -150,7 +151,10 @@ public class Vector3 implements Cloneable{
 
         Vector3 vector3 = (Vector3) o;
 
-        return Arrays.equals(values, vector3.values);
+        //return Arrays.equals(values, vector3.values);
+        return abs(getX() - vector3.getX()) < EPSILON
+                && abs(getY() - vector3.getY()) < EPSILON
+                && abs(getZ() - vector3.getZ()) < EPSILON;
     }
 
     @Override
@@ -161,5 +165,9 @@ public class Vector3 implements Cloneable{
     @Override
     public Vector3 clone(){
         return new Vector3(this.getX(), this.getY(), this.getZ());
+    }
+
+    public boolean compareTo(Vector3 value) {
+        return getX() == value.getX() || getY() == value.getY() || getZ() == value.getZ();
     }
 }

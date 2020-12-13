@@ -46,6 +46,11 @@ public class Edge implements Cloneable{
         return edges;
     }
 
+    public boolean intersectWithAllPlanes() {
+        return intersectWith(new Plane(1, 0, 0, 0)) == null &&
+                intersectWith(new Plane(0, 1, 0, 0)) == null &&
+                        intersectWith(new Plane(0, 0, 1, 0 )) == null;
+    }
     /**
      * Пересечение ребра (отрезка) с плоскостью
      * @param p Данная плоскость
@@ -126,5 +131,9 @@ public class Edge implements Cloneable{
     @Override
     public Edge clone() {
         return new Edge(this.from.clone(), this.to.clone());
+    }
+
+    public Edge reverse() {
+        return new Edge(to, from);
     }
 }

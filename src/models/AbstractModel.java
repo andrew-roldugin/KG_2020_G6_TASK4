@@ -73,16 +73,25 @@ public abstract class AbstractModel implements IModel, Cloneable {
     public Map<Face, List<Pair<Edge, Vector3>>> intersectWith(Plane p){
         Map<Face, List<Pair<Edge, Vector3>>> points = new HashMap<>();
         for (Face face : faces) {
+            Vector3 temp = null;
             for (Edge edge : face.getEdges()) {
                 Vector3 res = edge.intersectWith(p);
-                if(res != null)
-                    if(points.containsKey(face))
+                if(res != null) {
+                    if (res.equals(temp)) {
+                        temp = null;
+                        continue;
+                    }
+                    if (points.containsKey(face))
                         points.get(face).add(new Pair<>(edge, res));
                     else {
                         ArrayList<Pair<Edge, Vector3>> collection = new ArrayList<Pair<Edge, Vector3>>();
                         collection.add(new Pair<Edge, Vector3>(edge, res));
                         points.put(face, collection);
                     }
+                    if (res.equals(edge.getStartVector()) || res.equals(edge.getEndVector())) {
+                        temp = res;
+                    }
+                }
             }
         }
         return points;

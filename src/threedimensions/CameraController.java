@@ -162,7 +162,7 @@ public class CameraController implements MouseListener, MouseMotionListener, Mou
             /*Если двигаем с зажатой левой кнопкой мыши, то вращаем камеру*/
             if (leftFlag) {
                 double da = dx * Math.PI / 180;
-                double db = dy * Math.PI / 280;
+                double db = dy * Math.PI / 180;
                 camera.modifyRotate(
                         Matrix4Factories.rotationXYZ(da, Matrix4Factories.Axis.Y)
                     .mul(
