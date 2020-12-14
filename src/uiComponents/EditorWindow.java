@@ -1,8 +1,8 @@
 package uiComponents;
 
 import controllers.SolidController;
-import models.AbstractModel;
-import models.Plane3D;
+import models.common.AbstractModel;
+import models.other.Plane3D;
 import models.PlatonicSolid.Cube;
 import models.PlatonicSolid.SolidFactory;
 import models.PlatonicSolid.Solids;
@@ -10,8 +10,6 @@ import threedimensions.DrawPanel;
 import threedimensions.geometry.Plane;
 
 import javax.swing.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,9 +70,9 @@ public class EditorWindow extends JFrame {
     private void fullyRepaint(){
         AbstractModel model = controller.getRequiredPart(solid, part);
         drawPanel.clear();
-        drawPanel.add(model);
         if(visibleCheckBox.isSelected() && plane.isPresent())
             drawPanel.add(new Plane3D(plane));
+        drawPanel.add(model);
     }
 
     private void createUIComponents() {

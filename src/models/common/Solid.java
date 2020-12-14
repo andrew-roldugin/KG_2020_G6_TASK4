@@ -1,5 +1,8 @@
-package models;
+package models.common;
 
+/**
+ * Обычная пространственная фигура
+ */
 public class Solid extends AbstractModel{
 
     public Solid(AbstractModel model) throws CloneNotSupportedException {

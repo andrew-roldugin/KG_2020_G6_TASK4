@@ -1,18 +1,18 @@
 package controllers;
 
-import models.AbstractModel;
-import models.SolidManager;
+import models.common.AbstractModel;
+import models.Intersector;
 import threedimensions.geometry.Plane;
 
 public class SolidController {
     private final Plane plane;
     private AbstractModel solid;
-    private final SolidManager mgr;
+    private final Intersector mgr;
     private Parts part = Parts.ORIGINAL;
 
     public SolidController(Plane plane) {
         this.plane = plane;
-        this.mgr = new SolidManager(plane);
+        this.mgr = new Intersector(plane);
     }
 
     public void selectPart(Parts p) {

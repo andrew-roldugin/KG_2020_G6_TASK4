@@ -11,34 +11,37 @@ import java.beans.PropertyChangeSupport;
 public class Plane {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    private float[] coef = new float[4];
-    private Vector3 point1, point2, point3;
-
     private float A, B, C, D;
+
     public Plane(){
         this(0, 0, 0,  0);
     }
 
     public Plane(float a, float b, float c, float d) {
-        this.coef[0] = this.A = a;
-        this.coef[1] = this.B = b;
-        this.coef[2] = this.C = c;
-        this.coef[3] = this.D = d;
+        this.A = a;
+        this.B = b;
+        this.C = c;
+        this.D = d;
     }
 
     public Plane(Vector3 point1, Vector3 point2, Vector3 point3) {
-        this.point1 = point1;
-        this.point2 = point2;
-        this.point3 = point3;
-        this.coef = createEquation();
+        new Plane(createEquation(point1, point2, point3));
     }
 
+    private Plane(float[] arr){
+        this.A = arr[0];
+        this.B = arr[1];
+        this.C = arr[2];
+        this.D = arr[3];
+    }
     /**
      * Создает уравнение плоскости по 3 точкам
      * @return найденные коэффициенты
+     * @param point1
+     * @param point2
+     * @param point3
      */
-    private float[] createEquation(){
+    private float[] createEquation(Vector3 point1, Vector3 point2, Vector3 point3){
         float a = point2.getX() - point1.getX();
         float b = point2.getY() - point1.getY();
         float c = point2.getZ() - point1.getZ();
@@ -72,45 +75,39 @@ public class Plane {
     }
 
     public float getA() {
-        return (float) this.coef[0];
+        return this.A;
     }
     public float getB() {
-        return (float) this.coef[1];
+        return this.B;
     }
 
     public float getC() {
-        return (float) this.coef[2];
+        return this.C;
     }
 
     public float getD() {
-        return (float) this.coef[3];
+        return this.D;
     }
 
     public void setA(float newVal){
         support.firePropertyChange("A", this.A, newVal);
-        this.coef[0] = this.A = newVal;
+        this.A = newVal;
     }
 
     public void setB(float newVal){
         support.firePropertyChange("B", this.B, newVal);
-        this.coef[1] = this.B = newVal;
+        this.B = newVal;
     }
 
     public void setC(float newVal){
         support.firePropertyChange("C", this.C, newVal);
-        this.coef[2] = this.C = newVal;
+        this.C = newVal;
     }
 
     public void setD(float newVal){
         support.firePropertyChange("D", this.D, newVal);
-        this.coef[3] = this.D = newVal;
+        this.D = newVal;
     }
-
-    /*public float[] getCoef() {
-        return coef;
-    }
-
-     */
 
     public double valueAt(Vector3 point){
         return getNormal().dotProduct(point) + getD();

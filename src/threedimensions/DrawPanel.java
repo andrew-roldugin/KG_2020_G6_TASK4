@@ -4,24 +4,17 @@
  */
 package threedimensions;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.List;
-import javax.swing.*;
-
-import controllers.SolidController;
-import models.AbstractModel;
 import threedimensions.draw.IDrawer;
 import threedimensions.draw.SimpleEdgeDrawer;
-import threedimensions.math.Vector3;
 import threedimensions.screen.ScreenConverter;
 import threedimensions.third.Camera;
-import threedimensions.geometry.Plane;
 import threedimensions.third.IModel;
 import threedimensions.third.Scene;
-import models.PlatonicSolid.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.List;
 
 /**
  *
@@ -33,15 +26,14 @@ public class DrawPanel extends JPanel
     private ScreenConverter sc;
     private Camera cam;
     private CameraController camController;
-    private SolidController solidController;
 
     public DrawPanel() {
         super();
         sc = new ScreenConverter(-1, 1, 2, 2, 1, 1);
         cam = new Camera();
         camController = new CameraController(cam, sc);
-        scene = new Scene(Color.WHITE.getRGB());
-        scene.hideAxes();
+        scene = new Scene(Color.DARK_GRAY.getRGB());
+        scene.showAxes();
         /*scene.getModelsList().add(new Parallelepiped(
                 new Vector3(-0.4f, -0.4f, -0.4f), 
                 new Vector3(0.4f, 0.4f, 0.4f)

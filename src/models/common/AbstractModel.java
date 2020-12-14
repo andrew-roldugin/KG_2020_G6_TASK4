@@ -1,4 +1,4 @@
-package models;
+package models.common;
 
 import threedimensions.geometry.Edge;
 import threedimensions.geometry.face.Face;
@@ -102,5 +102,13 @@ public abstract class AbstractModel implements IModel, Cloneable {
         AbstractModel model = (AbstractModel) super.clone();
         model.faces = faces.stream().map(Face::clone).collect(Collectors.toCollection(ArrayList::new));
         return model;
+    }
+
+    public List<Face> getFaces() {
+        return faces;
+    }
+
+    public void setFaces(List<Face> c) {
+        this.faces = c;
     }
 }

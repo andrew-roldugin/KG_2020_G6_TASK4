@@ -1,4 +1,4 @@
-package models;
+package models.other;
 
 import threedimensions.math.Vector3;
 import threedimensions.third.IModel;

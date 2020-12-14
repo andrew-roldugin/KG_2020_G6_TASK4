@@ -1,9 +1,6 @@
 package models.PlatonicSolid;
 
-import models.Solid;
-
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.stream.Collectors;
 
 public enum Solids {

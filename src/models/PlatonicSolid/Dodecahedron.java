@@ -1,7 +1,7 @@
 package models.PlatonicSolid;
 
 import threedimensions.math.Vector3;
-import models.AbstractModel;
+import models.common.AbstractModel;
 
 import java.util.*;
 

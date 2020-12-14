@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import threedimensions.draw.IDrawer;
 import threedimensions.math.Vector3;
-import models.Line3D;
+import models.other.Line3D;
 
 /**
  * Описывает трёхмерную со всеми объектами на ней

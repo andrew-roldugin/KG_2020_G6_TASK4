@@ -1,6 +1,6 @@
 package models.PlatonicSolid;
 
-import models.AbstractModel;
+import models.common.AbstractModel;
 
 public class SolidFactory {
 

@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Random;
+
 import threedimensions.math.Vector3;
 import threedimensions.screen.ScreenConverter;
 import threedimensions.screen.ScreenCoordinates;
@@ -45,7 +47,14 @@ public class SimpleEdgeDrawer extends ScreenGraphicsDrawer {
         ScreenCoordinates crds = new ScreenCoordinates(points);
         /*если линия замкнута - рисуем полигон, иначе - полилинию*/
         if (polyline.isClosed()) {
-            getGraphics().drawPolygon(crds.getXx(), crds.getYy(), crds.size());
+            Random random = new Random();
+            Color c = new Color(
+                    random.nextInt(255),
+                    random.nextInt(255),
+                    random.nextInt(255)
+            );
+            getGraphics().setColor(c);
+            getGraphics().fillPolygon(crds.getXx(), crds.getYy(), crds.size());
         }else
             getGraphics().drawPolyline(crds.getXx(), crds.getYy(), crds.size());
     }
