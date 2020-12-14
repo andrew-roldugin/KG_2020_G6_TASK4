@@ -4,6 +4,7 @@
  */
 package threedimensions.third;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -54,9 +55,9 @@ public class Scene {
     }
     
     private static final List<Line3D> axes = Arrays.asList(
-            new Line3D(new Vector3(0, 0, 0), new Vector3(1, 0, 0)),
-            new Line3D(new Vector3(0, 0, 0), new Vector3(0, 1, 0)),
-            new Line3D(new Vector3(0, 0, 0), new Vector3(0, 0, 1))
+            new Line3D(new Vector3(0, 0, 0), new Vector3(1, 0, 0), Color.RED),
+            new Line3D(new Vector3(0, 0, 0), new Vector3(0, 1, 0), Color.GREEN),
+            new Line3D(new Vector3(0, 0, 0), new Vector3(0, 0, 1), Color.BLUE)
     );
     
     /**
@@ -81,7 +82,7 @@ public class Scene {
                         points.add(cam.w2s(v));
                     }
                     /*Создаём на их основе новые полилинии, но в том виде, в котором их видит камера*/
-                    lines.add(new PolyLine3D(points, pl.isClosed()));
+                    lines.add(new PolyLine3D(points, pl.isClosed(), pl.getColor()));
                 }
             }
         /*Закрашиваем фон*/

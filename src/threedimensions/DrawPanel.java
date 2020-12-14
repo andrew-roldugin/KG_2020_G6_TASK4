@@ -4,6 +4,7 @@
  */
 package threedimensions;
 
+import threedimensions.color.RandomColor;
 import threedimensions.draw.IDrawer;
 import threedimensions.draw.SimpleEdgeDrawer;
 import threedimensions.screen.ScreenConverter;

@@ -4,12 +4,9 @@
  */
 package threedimensions.draw;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.Random;
-
 import threedimensions.math.Vector3;
 import threedimensions.screen.ScreenConverter;
 import threedimensions.screen.ScreenCoordinates;
@@ -43,20 +40,26 @@ public class SimpleEdgeDrawer extends ScreenGraphicsDrawer {
                 getGraphics().fillRect(points.get(0).getI(), points.get(0).getJ(), 1, 1);
             return;
         }
+        /*ZComposite composite = new ZComposite(getScreenConverter().getWs(), getScreenConverter().getHs());
+        composite.clearBufferBit();
+        composite.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        getGraphics().setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        getGraphics().setComposite(composite);
+         */
+
         /*создаём хранилище этих точек в виде двух массивов*/
         ScreenCoordinates crds = new ScreenCoordinates(points);
         /*если линия замкнута - рисуем полигон, иначе - полилинию*/
         if (polyline.isClosed()) {
-            Random random = new Random();
-            Color c = new Color(
-                    random.nextInt(255),
-                    random.nextInt(255),
-                    random.nextInt(255)
-            );
-            getGraphics().setColor(c);
+
+            //composite.setValueResolver(ZValueResolverFactory.createPolygonResolver(crds.getXx(), crds.getYy(), 100, 0, 0));
+            getGraphics().setColor(polyline.getColor());
             getGraphics().fillPolygon(crds.getXx(), crds.getYy(), crds.size());
-        }else
+        }else {
+            //composite.setValueResolver(ZValueResolverFactory.createPolygonResolver(crds.getXx(), crds.getYy(), 100, 0, 0));
+            getGraphics().setColor(polyline.getColor());
             getGraphics().drawPolyline(crds.getXx(), crds.getYy(), crds.size());
+        }
     }
 
     /**

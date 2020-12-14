@@ -4,9 +4,12 @@
  */
 package models.other;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import threedimensions.color.RandomColor;
 import threedimensions.math.Vector3;
 import threedimensions.third.IModel;
 import threedimensions.third.PolyLine3D;
@@ -31,19 +34,20 @@ public class Parallelepiped implements IModel {
 
     @Override
     public List<PolyLine3D> getLines() {
+        Color color = RandomColor.generateNewColor();
         LinkedList<PolyLine3D> lines = new LinkedList<>();
         /*Дальняя сторона (Z фиксирован и вязт у LTF)*/
         lines.add(new PolyLine3D(Arrays.asList(new Vector3(LTF.getX(), LTF.getY(), LTF.getZ()),
                 new Vector3(LTF.getX(), RBN.getY(), LTF.getZ()),
                 new Vector3(RBN.getX(), RBN.getY(), LTF.getZ()),
-                new Vector3(RBN.getX(), LTF.getY(), LTF.getZ())), true));
+                new Vector3(RBN.getX(), LTF.getY(), LTF.getZ())), true, color));
         /*Ближняя сторона  (Z фиксирован и вязт у RBN)*/
         lines.add(new PolyLine3D(Arrays.asList(new Vector3[]{
                     new Vector3(LTF.getX(), LTF.getY(), RBN.getZ()),
                     new Vector3(LTF.getX(), RBN.getY(), RBN.getZ()),
                     new Vector3(RBN.getX(), RBN.getY(), RBN.getZ()),
                     new Vector3(RBN.getX(), LTF.getY(), RBN.getZ())
-                }), true));
+                }), true, color));
         
         /*Верхняя сторона (Y фиксирован и вязт у LTF)*/
         lines.add(new PolyLine3D(Arrays.asList(new Vector3[]{
@@ -51,14 +55,14 @@ public class Parallelepiped implements IModel {
                     new Vector3(LTF.getX(), LTF.getY(), RBN.getZ()),
                     new Vector3(RBN.getX(), LTF.getY(), RBN.getZ()),
                     new Vector3(RBN.getX(), LTF.getY(), LTF.getZ())
-                }), true));
+                }), true, color));
         /*Нижняя сторона (Y фиксирован и вязт у RBN)*/
         lines.add(new PolyLine3D(Arrays.asList(new Vector3[]{
                     new Vector3(LTF.getX(), RBN.getY(), LTF.getZ()),
                     new Vector3(LTF.getX(), RBN.getY(), RBN.getZ()),
                     new Vector3(RBN.getX(), RBN.getY(), RBN.getZ()),
                     new Vector3(RBN.getX(), RBN.getY(), LTF.getZ())
-                }), true));
+                }), true, color));
         
         /*Левая сторона (X фиксирован и вязт у LTF)*/
         lines.add(new PolyLine3D(Arrays.asList(new Vector3[]{
@@ -66,14 +70,14 @@ public class Parallelepiped implements IModel {
                     new Vector3(LTF.getX(), LTF.getY(), RBN.getZ()),
                     new Vector3(LTF.getX(), RBN.getY(), RBN.getZ()),
                     new Vector3(LTF.getX(), RBN.getY(), LTF.getZ())
-                }), true));
+                }), true, color));
         /*Правая сторона (X фиксирован и вязт у RBN)*/
         lines.add(new PolyLine3D(Arrays.asList(new Vector3[]{
                     new Vector3(RBN.getX(), LTF.getY(), LTF.getZ()),
                     new Vector3(RBN.getX(), LTF.getY(), RBN.getZ()),
                     new Vector3(RBN.getX(), RBN.getY(), RBN.getZ()),
                     new Vector3(RBN.getX(), RBN.getY(), LTF.getZ())
-                }), true));
+                }), true, color));
         
         return lines;
     }

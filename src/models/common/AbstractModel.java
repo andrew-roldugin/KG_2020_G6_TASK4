@@ -1,7 +1,8 @@
 package models.common;
 
+import threedimensions.color.RandomColor;
 import threedimensions.geometry.Edge;
-import threedimensions.geometry.face.Face;
+import threedimensions.geometry.Face;
 import threedimensions.geometry.face.FaceFactory;
 import threedimensions.math.Vector3;
 import threedimensions.third.IModel;
@@ -10,6 +11,7 @@ import threedimensions.third.PolyLine3D;
 import org.apache.commons.math3.util.Pair;
 
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class AbstractModel implements IModel, Cloneable {
@@ -25,9 +27,9 @@ public abstract class AbstractModel implements IModel, Cloneable {
     //все ребра многогранника
     //protected List<Edge> edges;
 
-
     public AbstractModel(double radius) {
         this.radius = radius;
+        //this.color = RandomColor.generateNewColor();
     }
 
     public double getRadius() {
@@ -53,7 +55,7 @@ public abstract class AbstractModel implements IModel, Cloneable {
 
     private ArrayList<PolyLine3D> asPolyline(List<Face> list) {
         return list.stream()
-                .map(face -> new PolyLine3D(face.getVertices(), true))
+                .map(face -> new PolyLine3D(face.getVertices(), true, face.getColor()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -66,7 +68,7 @@ public abstract class AbstractModel implements IModel, Cloneable {
                 char ch = str.charAt(i);
                 subList.add(vertices.get(ch));
             }
-            faces.add(FaceFactory.getFace(subList, num));
+            faces.add(FaceFactory.getFace(subList, num, RandomColor.generateNewColor()));
         }
     }
 
@@ -111,4 +113,14 @@ public abstract class AbstractModel implements IModel, Cloneable {
     public void setFaces(List<Face> c) {
         this.faces = c;
     }
+
+    /*public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+     */
 }

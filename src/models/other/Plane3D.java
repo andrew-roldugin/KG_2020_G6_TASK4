@@ -1,19 +1,23 @@
 package models.other;
 
+import threedimensions.color.RandomColor;
 import threedimensions.math.Vector3;
 import threedimensions.third.IModel;
 import threedimensions.geometry.Plane;
 import threedimensions.third.PolyLine3D;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Plane3D implements IModel {
+    private final Color color;
     private Plane plane;
 
     public Plane3D(Plane plane) {
         this.plane = plane;
+        this.color = RandomColor.generateNewColor();
     }
 
     @Override
@@ -22,6 +26,7 @@ public class Plane3D implements IModel {
         LinkedList<PolyLine3D> lines = new LinkedList<>();
         Vector3 a = null;
         float b = 0;
+
         if (Float.compare(plane.getC(), 0) != 0) {
             a = plane.getABD();
             b = plane.getC();
@@ -39,7 +44,7 @@ public class Plane3D implements IModel {
                     new Vector3(-2, 2, res1),
                     new Vector3(-2, -2, res2),
                     new Vector3(2, -2, res3),
-                    new Vector3(2, 2, res4)), true));
+                    new Vector3(2, 2, res4)), true, color));
 
 
        /* lines.add(new PolyLine3D(Arrays.asList(
@@ -62,7 +67,7 @@ public class Plane3D implements IModel {
                         new Vector3(-2, res1, 2),
                         new Vector3(-2, res2, -2),
                         new Vector3(2, res3, -2),
-                        new Vector3(2, res4, 2)), true));
+                        new Vector3(2, res4, 2)), true, color));
             }else if(Float.compare(plane.getB(), 0) == 0){
                 a = plane.getBCD();
                 b = plane.getA();
@@ -74,7 +79,7 @@ public class Plane3D implements IModel {
                         new Vector3( res1, -2, 2),
                         new Vector3( res2, -2,-2),
                         new Vector3( res3, 2,-2),
-                        new Vector3( res4, 2,2)), true));
+                        new Vector3( res4, 2,2)), true, color));
             }
         }
 

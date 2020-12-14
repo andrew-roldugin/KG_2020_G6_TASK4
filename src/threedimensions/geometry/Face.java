@@ -1,9 +1,10 @@
-package threedimensions.geometry.face;
+package threedimensions.geometry;
 
-import threedimensions.geometry.Edge;
 import threedimensions.math.Vector3;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static threedimensions.geometry.Edge.createEdges;
@@ -16,29 +17,29 @@ public class Face implements Cloneable{
     private List<Vector3> vertices;
     //множество ребер грани
     private List<Edge> edges;
-    //длина ребра
-    private double a;
+
     //размерность правильного n-угольника
     private int num;
 
-    public Face(Collection<Vector3> vertices, int num) {
+    private Color color;
+
+    public Face(Collection<Vector3> vertices, int num, Color color) {
         this.vertices = new ArrayList<>(vertices);
         this.edges = createEdges(this.vertices, num);
         this.num = num;
+        this.color = color;
     }
 
-    public Face(Collection<Vector3> vertices, double a, int num) {
+    /*public Face(Collection<Vector3> vertices,Color color) {
         this.vertices = new ArrayList<>(vertices);
         this.edges = createEdges(this.vertices, num);
-        this.a = a;
+        this.color = color;
     }
+
+     */
 
     public List<Vector3> getVertices() {
         return vertices;
-    }
-
-    public double getA() {
-        return a;
     }
 
     public void setVertices(List<Vector3> vertices) {
@@ -70,7 +71,11 @@ public class Face implements Cloneable{
         return num;
     }
 
-    public double getASquared(){
-        return a * a;
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

@@ -5,7 +5,7 @@ import models.common.AbstractModel;
 import models.common.Solid;
 import models.other.Section;
 import threedimensions.geometry.Edge;
-import threedimensions.geometry.face.Face;
+import threedimensions.geometry.Face;
 import threedimensions.math.Vector3;
 import threedimensions.geometry.Plane;
 import org.apache.commons.math3.util.Pair;
@@ -43,21 +43,29 @@ public class Intersector {
             }
 
             case FIRST -> {
+                Map<Face, List<Pair<Edge, Vector3>>> map = part.intersectWith(plane);
                 getPart(
                         part,
-                        part.intersectWith(plane),
+                        map,
                         (v1) -> plane.valueAt(v1) >= 0,
                         (v2) -> plane.valueAt(v2) > -1e-5
                 );
+                AbstractModel section = getSection(map);
+                if(section != null)
+                    part.getFaces().add(section.getFaces().get(0));
                 return part;
             }
             case SECOND -> {
+                Map<Face, List<Pair<Edge, Vector3>>> map = part.intersectWith(plane);
                 getPart(
                         part,
-                        part.intersectWith(plane),
+                        map,
                         (v1) -> plane.valueAt(v1) <= 0,
                         (v2) -> plane.valueAt(v2) < 1e-5
                 );
+                AbstractModel section = getSection(map);
+                if(section != null)
+                part.getFaces().add(section.getFaces().get(0));
                 return part;
             }
             default -> {

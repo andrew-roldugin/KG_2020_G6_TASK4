@@ -4,6 +4,7 @@
  */
 package models.other;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import threedimensions.math.Vector3;
@@ -16,17 +17,26 @@ import threedimensions.third.PolyLine3D;
  */
 public class Line3D implements IModel {
     private Vector3 p1, p2;
+    private Color color = Color.BLACK;
 
-    public Line3D(Vector3 p1, Vector3 p2) {
+    public Line3D(Vector3 p1, Vector3 p2, Color color) {
         this.p1 = p1;
         this.p2 = p2;
+        this.color = color;
     }
 
     @Override
     public List<PolyLine3D> getLines() {
         return Arrays.asList(new PolyLine3D(
                 Arrays.asList(p1, p2)
-            , false));
+            , false, color));
     }
-    
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 }

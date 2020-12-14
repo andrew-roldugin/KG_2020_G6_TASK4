@@ -1,7 +1,8 @@
 package models.other;
 
 import models.common.AbstractModel;
-import threedimensions.geometry.face.Face;
+import threedimensions.color.RandomColor;
+import threedimensions.geometry.Face;
 import threedimensions.math.Vector3;
 
 import java.util.Arrays;
@@ -13,7 +14,7 @@ public class Section extends AbstractModel {
     public Section(List<Vector3> list) {
         super(0);
         this.list = list;
-        faces = Arrays.asList(new Face(list, 0));
+        faces = Arrays.asList(new Face(list, 0, RandomColor.generateNewColor()));
     }
 
     @Override
